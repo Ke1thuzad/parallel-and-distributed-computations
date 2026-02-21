@@ -22,7 +22,7 @@ int main() {
     int n;
 
     std::cin >> n;
-    if (n >= (1 << 25)) {
+    if (n >= (1 << 25) || n <= 0) {
         fprintf(stderr, "n > 2^25");
         return 0;
     }
@@ -56,7 +56,7 @@ int main() {
     cudaMemcpy(dev_vecs, vec1, sizeof(double) * n, cudaMemcpyHostToDevice);
     cudaMemcpy(dev_vecs + n, vec2, sizeof(double) * n, cudaMemcpyHostToDevice);
 
-    kernel<<<32, 32>>>(dev_vecs, n);
+    kernel<<<32768, 1024>>>(dev_vecs, n);
 
     cudaMemcpy(vec1, dev_vecs, sizeof(double) * n, cudaMemcpyDeviceToHost);
 
