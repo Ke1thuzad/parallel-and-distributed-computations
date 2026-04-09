@@ -2,22 +2,26 @@
 
 template <class T>
 class CudaLinear {
-    T *memory;
+    T *memory = nullptr;
+    size_t size = 0;
 public:
-    CudaLinear(size_t size) {
+    CudaLinear(size_t size) : size(size) {
         CSCT(cudaMalloc(&memory, sizeof(T) * size));
     }
 
-    void memcpy(void *dst, int n, cudaMemcpyKind flag) {
-        CSCT(cudaMemcpy(dst, memory, sizeof(T) * n, flag));
+    CudaLinear(const CudaLinear&) = delete;
+    CudaLinear& operator=(const CudaLinear&) = delete;
+
+    void memcpy(void *dst, void *src, size_t count, cudaMemcpyKind flag) {
+        CSCT(cudaMemcpy(dst, src, sizeof(T) * count, flag));
     }
 
-    void memcpyToHost(void *dst, int n) {
-        memcpy(dst, n, cudaMemcpyDeviceToHost);
+    void memcpyToHost(void *dst, size_t count) {
+        memcpy(dst, memory, count, cudaMemcpyDeviceToHost);
     }
 
-    void memcpyToDev(void *dst, int n) {
-        memcpy(dst, n, cudaMemcpyHostToDevice);
+    void memcpyToDev(void *src, size_t count) {
+        memcpy(memory, src, count, cudaMemcpyHostToDevice);
     }
 
     T *get() {

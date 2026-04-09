@@ -84,7 +84,7 @@ int main() {
 
         CudaLinear<uchar4> dev_out(total_pixels);
 
-        kernel<<<dim3(16, 16), dim3(32, 32)>>>(cudaTexture.get(), dev_out.get(), w, h);
+        kernel<<<dim3(32, 32), dim3(16, 16)>>>(cudaTexture.get(), dev_out.get(), w, h);
 
         CSCT(cudaGetLastError());
 

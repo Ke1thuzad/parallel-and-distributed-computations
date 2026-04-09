@@ -38,8 +38,8 @@ def revert_image(name):
     img.save('out.png')
 
 def main():
-    # transform_image('prikol')
-    revert_image('out')
+    # transform_image('field')
+    revert_image('field')
 
 if __name__ == '__main__':
     main()

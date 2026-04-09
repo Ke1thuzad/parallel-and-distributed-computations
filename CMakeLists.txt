@@ -14,6 +14,10 @@ add_executable(lab1 lab1/main.cu)
 add_executable(lab2 lab2/main.cu
         ${cudaClasses})
 
+add_executable(lab3 lab3/main.cu
+        ${cudaClasses}
+        lab3/pixel.cu)
+
 #set_target_properties(lab1 PROPERTIES
 #        CUDA_SEPARABLE_COMPILATION ON)
 #set_target_properties(lab2 PROPERTIES
