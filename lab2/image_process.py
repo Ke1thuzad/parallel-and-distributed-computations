@@ -39,7 +39,7 @@ def revert_image(name):
 
 def main():
     # transform_image('field')
-    revert_image('field')
+    revert_image('out')
 
 if __name__ == '__main__':
     main()
